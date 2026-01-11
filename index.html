@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pictogram Ketting Maker</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Load the manifest of images first -->
+    <script src="manifest.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar for tools and pictogram selection -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Zoek pictogram..." autocomplete="off">
+                </div>
+                <div class="tool-box">
+                    <div class="tool-btn" draggable="true" id="addTextBtn">T Tekst</div>
+                    <div class="tool-btn" id="addUploadBtn">📷 Foto</div>
+                </div>
+            </div>
+            
+            <div id="picto-list" class="picto-list">
+                <!-- Pictograms will be injected here by JS -->
+            </div>
+
+            <div class="controls">
+                <div class="saved-controls">
+                    <select id="savedSelect">
+                        <option value="">-- Kies opgeslagen ketting --</option>
+                    </select>
+                    <button id="deleteSavedBtn" class="btn btn-danger" title="Verwijder geselecteerde">×</button>
+                </div>
+                <div class="action-buttons">
+                    <button id="saveBtn" class="btn btn-primary" title="Opslaan">💾</button>
+                    <button id="printBtn" class="btn btn-success" title="Afdrukken">🖨️</button>
+                    <button id="clearBtn" class="btn btn-danger" title="Alles Wissen">🗑️</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace" id="workspace">
+            <div id="grid-pattern"></div>
+            <!-- SVG Layer for drawing lines -->
+            <svg id="connections-layer"></svg>
+            <!-- Container for dropped pictograms -->
+            <div id="nodes-layer"></div>
+        </main>
+    </div>
+
+    <!-- Hidden File Input -->
+    <input type="file" id="uploadInput" accept="image/*" style="display: none;">
+
+    <!-- Edit/Name Modal -->
+    <dialog id="saveDialog">
+        <form method="dialog">
+            <h3>Ketting Opslaan</h3>
+            <input type="text" id="saveNameInput" placeholder="Naam van de ketting" required>
+            <div class="dialog-buttons">
+                <button value="cancel">Annuleren</button>
+                <button id="confirmSaveBtn" value="default">Opslaan</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="script.js"></script>
+</body>
+</html>
