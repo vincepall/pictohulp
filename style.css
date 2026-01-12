@@ -497,9 +497,9 @@ body.is-printing .app-container {
 }
 
 body.is-printing .workspace {
-    /* Exact A4 Landscape dimensions at 96 DPI */
-    width: 1122px !important;
-    height: 793px !important;
+    /* Exact A4 Landscape dimensions */
+    width: 297mm !important;
+    height: 210mm !important;
     background: white;
     box-shadow: 0 0 50px rgba(0,0,0,0.5);
     /* Dashed line to show printable area (visual only) */
@@ -549,8 +549,8 @@ body.is-printing #connections-layer {
     .workspace {
         position: absolute;
         top: 0; left: 0;
-        width: 1122px !important;
-        height: 793px !important;
+        width: 297mm !important;
+        height: 210mm !important;
         overflow: hidden !important;
         border: none;
         box-shadow: none;
