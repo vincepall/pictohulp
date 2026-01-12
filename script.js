@@ -18,6 +18,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const connectionsLayer = document.getElementById('connections-layer');
     const saveDialog = document.getElementById('saveDialog');
     const saveNameInput = document.getElementById('saveNameInput');
+    
+    // Sidebar Toggle (Mobile)
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('open');
+        });
+    }
+    
+    // Close sidebar when clicking workspace (if open on mobile)
+    workspace.addEventListener('click', () => {
+        if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+        }
+    });
 
     // --- Initialization ---
 
@@ -182,6 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const x = (rect.width / 2) - canvasOffset.x - 50; 
                 const y = (rect.height / 2) - canvasOffset.y - 50;
                 addNode(filename, x, y);
+                
+                // Auto-close sidebar on mobile
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar').classList.remove('open');
+                }
             });
 
             pictoList.appendChild(img);

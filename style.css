@@ -18,13 +18,15 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-color);
     height: 100vh;
+    height: 100dvh; /* Mobile friendly height */
     overflow: hidden;
 }
 
 .app-container {
     display: flex;
-    height: 100vh;
+    height: 100%;
     width: 100vw;
+    position: relative;
 }
 
 /* SIDEBAR STYLES */
@@ -37,12 +39,15 @@ body {
     flex-direction: column;
     z-index: 100;
     box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-header {
     padding: 1.5rem 1rem;
     background: rgba(0,0,0,0.1);
     border-bottom: 1px solid rgba(255,255,255,0.05);
+    /* Safe area for mobile top notch if needed */
+    padding-top: max(1.5rem, env(safe-area-inset-top));
 }
 
 .sidebar-header h2 {
@@ -146,6 +151,8 @@ body {
     padding: 1.2rem;
     border-top: 1px solid rgba(255,255,255,0.05);
     background: rgba(0,0,0,0.15);
+    /* Safe area padding for mobile home bar */
+    padding-bottom: max(1.2rem, env(safe-area-inset-bottom));
 }
 
 .controls h3 {
@@ -201,6 +208,27 @@ body {
 .btn-primary { background: var(--primary-color); }
 .btn-danger { background: #e74c3c; }
 .btn-success { background: #27ae60; }
+
+/* TOGGLE BUTTON */
+.sidebar-toggle {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 90;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: #333;
+    padding: 0;
+    /* Safe area for top */
+    top: max(15px, env(safe-area-inset-top));
+}
 
 /* WORKSPACE / CANVAS */
 .workspace {
@@ -413,6 +441,37 @@ path.connection-line:hover {
     stroke: #e74c3c; /* Red on hover to indicate deletability */
 }
 
+
+/* MOBILE RESPONSIVE STYLE */
+@media (max-width: 768px) {
+    .sidebar {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 85%;
+        max-width: 320px;
+        transform: translateX(-100%); /* Hidden by default */
+        box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* When sidebar is open, show a backdrop? 
+       Actually, just pushing content or overlaying is fine.
+       Overlay is better for maintaining workspace state.
+    */
+}
+
+
 /* ON-SCREEN PRINT PREVIEW */
 body.is-printing {
     background: #555; /* Dark background to highlight the 'paper' */
@@ -426,7 +485,8 @@ body.is-printing {
 body.is-printing .sidebar,
 body.is-printing .instructions,
 body.is-printing .controls,
-body.is-printing .sidebar-header {
+body.is-printing .sidebar-header,
+body.is-printing .sidebar-toggle {
     display: none !important;
 }
 
@@ -476,7 +536,7 @@ body.is-printing #connections-layer {
         height: auto;
     }
 
-    .sidebar, .instructions, dialog, .controls, .sidebar-header {
+    .sidebar, .instructions, dialog, .controls, .sidebar-header, .sidebar-toggle {
         display: none !important;
     }
 
@@ -489,9 +549,9 @@ body.is-printing #connections-layer {
     .workspace {
         position: absolute;
         top: 0; left: 0;
-        width: 100% !important;
-        height: 100% !important;
-        overflow: visible !important;
+        width: 1122px !important;
+        height: 793px !important;
+        overflow: hidden !important;
         border: none;
         box-shadow: none;
     }
