@@ -721,7 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Define A4 Landscape dimensions (96 DPI)
         const PAGE_W = 1122; 
         const PAGE_H = 793;
-        const MARGIN = 20; // Small safety margin
+        const MARGIN = 40; // Increased safety margin for mobile printing
 
         const safeW = PAGE_W - (MARGIN * 2);
         const safeH = PAGE_H - (MARGIN * 2);
